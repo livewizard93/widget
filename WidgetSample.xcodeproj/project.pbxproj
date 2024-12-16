@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D775F9C82D0FC1A5000951C2 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D775F9C72D0FC1A4000951C2 /* WidgetKit.framework */; };
+		D775F9CA2D0FC1A5000951C2 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D775F9C92D0FC1A5000951C2 /* SwiftUI.framework */; };
+		D775F9D52D0FC1A7000951C2 /* CelebrationWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D775F9C52D0FC1A4000951C2 /* CelebrationWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		D775F98E2D0FC024000951C2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -21,12 +27,36 @@
 			remoteGlobalIDString = D775F9762D0FC01F000951C2;
 			remoteInfo = WidgetSample;
 		};
+		D775F9D32D0FC1A7000951C2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D775F96F2D0FC01F000951C2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D775F9C42D0FC1A4000951C2;
+			remoteInfo = CelebrationWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D775F9D62D0FC1A7000951C2 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D775F9D52D0FC1A7000951C2 /* CelebrationWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		D775F9772D0FC01F000951C2 /* WidgetSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WidgetSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D775F98D2D0FC024000951C2 /* WidgetSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WidgetSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D775F9972D0FC024000951C2 /* WidgetSampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WidgetSampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D775F9C52D0FC1A4000951C2 /* CelebrationWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CelebrationWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D775F9C72D0FC1A4000951C2 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		D775F9C92D0FC1A5000951C2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -36,6 +66,13 @@
 				Info.plist,
 			);
 			target = D775F9762D0FC01F000951C2 /* WidgetSample */;
+		};
+		D775F9DA2D0FC1A7000951C2 /* Exceptions for "CelebrationWidget" folder in "CelebrationWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D775F9C42D0FC1A4000951C2 /* CelebrationWidgetExtension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -56,6 +93,14 @@
 		D775F99A2D0FC024000951C2 /* WidgetSampleUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = WidgetSampleUITests;
+			sourceTree = "<group>";
+		};
+		D775F9CB2D0FC1A5000951C2 /* CelebrationWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D775F9DA2D0FC1A7000951C2 /* Exceptions for "CelebrationWidget" folder in "CelebrationWidgetExtension" target */,
+			);
+			path = CelebrationWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -82,6 +127,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D775F9C22D0FC1A4000951C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D775F9CA2D0FC1A5000951C2 /* SwiftUI.framework in Frameworks */,
+				D775F9C82D0FC1A5000951C2 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -91,6 +145,8 @@
 				D775F9792D0FC01F000951C2 /* WidgetSample */,
 				D775F9902D0FC024000951C2 /* WidgetSampleTests */,
 				D775F99A2D0FC024000951C2 /* WidgetSampleUITests */,
+				D775F9CB2D0FC1A5000951C2 /* CelebrationWidget */,
+				D775F9C62D0FC1A4000951C2 /* Frameworks */,
 				D775F9782D0FC01F000951C2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -101,8 +157,18 @@
 				D775F9772D0FC01F000951C2 /* WidgetSample.app */,
 				D775F98D2D0FC024000951C2 /* WidgetSampleTests.xctest */,
 				D775F9972D0FC024000951C2 /* WidgetSampleUITests.xctest */,
+				D775F9C52D0FC1A4000951C2 /* CelebrationWidgetExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D775F9C62D0FC1A4000951C2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D775F9C72D0FC1A4000951C2 /* WidgetKit.framework */,
+				D775F9C92D0FC1A5000951C2 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -115,10 +181,12 @@
 				D775F9732D0FC01F000951C2 /* Sources */,
 				D775F9742D0FC01F000951C2 /* Frameworks */,
 				D775F9752D0FC01F000951C2 /* Resources */,
+				D775F9D62D0FC1A7000951C2 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D775F9D42D0FC1A7000951C2 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				D775F9792D0FC01F000951C2 /* WidgetSample */,
@@ -176,6 +244,28 @@
 			productReference = D775F9972D0FC024000951C2 /* WidgetSampleUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		D775F9C42D0FC1A4000951C2 /* CelebrationWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D775F9D92D0FC1A7000951C2 /* Build configuration list for PBXNativeTarget "CelebrationWidgetExtension" */;
+			buildPhases = (
+				D775F9C12D0FC1A4000951C2 /* Sources */,
+				D775F9C22D0FC1A4000951C2 /* Frameworks */,
+				D775F9C32D0FC1A4000951C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				D775F9CB2D0FC1A5000951C2 /* CelebrationWidget */,
+			);
+			name = CelebrationWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = CelebrationWidgetExtension;
+			productReference = D775F9C52D0FC1A4000951C2 /* CelebrationWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -197,6 +287,9 @@
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = D775F9762D0FC01F000951C2;
 					};
+					D775F9C42D0FC1A4000951C2 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 				};
 			};
 			buildConfigurationList = D775F9722D0FC01F000951C2 /* Build configuration list for PBXProject "WidgetSample" */;
@@ -216,6 +309,7 @@
 				D775F9762D0FC01F000951C2 /* WidgetSample */,
 				D775F98C2D0FC024000951C2 /* WidgetSampleTests */,
 				D775F9962D0FC024000951C2 /* WidgetSampleUITests */,
+				D775F9C42D0FC1A4000951C2 /* CelebrationWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -236,6 +330,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D775F9952D0FC024000951C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D775F9C32D0FC1A4000951C2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -266,6 +367,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D775F9C12D0FC1A4000951C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -278,6 +386,11 @@
 			isa = PBXTargetDependency;
 			target = D775F9762D0FC01F000951C2 /* WidgetSample */;
 			targetProxy = D775F9982D0FC024000951C2 /* PBXContainerItemProxy */;
+		};
+		D775F9D42D0FC1A7000951C2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D775F9C42D0FC1A4000951C2 /* CelebrationWidgetExtension */;
+			targetProxy = D775F9D32D0FC1A7000951C2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -523,6 +636,58 @@
 			};
 			name = Release;
 		};
+		D775F9D72D0FC1A7000951C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CelebrationWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CelebrationWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = miguel.WidgetSample.CelebrationWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D775F9D82D0FC1A7000951C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CelebrationWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CelebrationWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = miguel.WidgetSample.CelebrationWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -558,6 +723,15 @@
 			buildConfigurations = (
 				D775F9A92D0FC025000951C2 /* Debug */,
 				D775F9AA2D0FC025000951C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D775F9D92D0FC1A7000951C2 /* Build configuration list for PBXNativeTarget "CelebrationWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D775F9D72D0FC1A7000951C2 /* Debug */,
+				D775F9D82D0FC1A7000951C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
