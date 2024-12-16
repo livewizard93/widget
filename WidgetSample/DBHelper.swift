@@ -15,6 +15,7 @@ class DBHelper
         db = openDatabase()
 //        dropTable()
         createTable()
+//        insertData()
     }
 
     let dbPath: String = "celebrations.db"
@@ -100,7 +101,7 @@ class DBHelper
         action_metadata: String
     )
     {
-        let persons = read(month: -1, day: -1)
+        let persons = read()
         for p in persons
         {
             if p.id == id
@@ -156,12 +157,8 @@ class DBHelper
         sqlite3_finalize(insertStatement)
     }
     
-    func read(month: Int, day: Int) -> [Celebration] {
-        var queryStatementString = "SELECT * FROM celebrations";
-        if (month != -1 && day != -1) {
-            queryStatementString = "SELECT * FROM celebrations WHERE month=\(month) AND day=\(day);"
-        }
-        
+    func read() -> [Celebration] {
+        let queryStatementString = "SELECT * FROM celebrations";
         var queryStatement: OpaquePointer? = nil
         var list : [Celebration] = []
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
@@ -250,4 +247,193 @@ class DBHelper
 //        }
 //        sqlite3_finalize(deleteStatement)
 //    }
+    
+    func readTodayData(date: Date) -> (note: String, photo: String){
+        let calendarDate = Calendar.current.dateComponents([.day, .year, .month], from: date)
+        
+        print("month = \(calendarDate.month!)")
+        print("day = \(calendarDate.day!)")
+        
+        let queryStatementString = "SELECT * FROM celebrations WHERE month=\(calendarDate.month!) AND day=\(calendarDate.day!);";
+        var queryStatement: OpaquePointer? = nil
+        var list : [Celebration] = []
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                let id = String(describing: String(cString: sqlite3_column_text(queryStatement, 0)))
+                let user_id = String(describing: String(cString: sqlite3_column_text(queryStatement, 1)))
+                let created_at = String(describing: String(cString: sqlite3_column_text(queryStatement, 2)))
+                let modified_at = String(describing: String(cString: sqlite3_column_text(queryStatement, 3)))
+                let synced_at = String(describing: String(cString: sqlite3_column_text(queryStatement, 4)))
+                let category = String(describing: String(cString: sqlite3_column_text(queryStatement, 5)))
+                let kind_alias = String(describing: String(cString: sqlite3_column_text(queryStatement, 6)))
+                let subkind = String(describing: String(cString: sqlite3_column_text(queryStatement, 7)))
+                let calendar_id = String(describing: String(cString: sqlite3_column_text(queryStatement, 8)))
+                let calendar_event_id = String(describing: String(cString: sqlite3_column_text(queryStatement, 9)))
+                let derived_from_id = String(describing: String(cString: sqlite3_column_text(queryStatement, 10)))
+                let person_id = String(describing: String(cString: sqlite3_column_text(queryStatement, 11)))
+                let dateString = String(describing: String(cString: sqlite3_column_text(queryStatement, 12)))
+                let dayValue = sqlite3_column_int(queryStatement, 13)
+                let monthValue = sqlite3_column_int(queryStatement, 14)
+                let year_of_birth = sqlite3_column_int(queryStatement, 15)
+                let first_name = String(describing: String(cString: sqlite3_column_text(queryStatement, 16)))
+                let last_name = String(describing: String(cString: sqlite3_column_text(queryStatement, 17)))
+                let nickname = String(describing: String(cString: sqlite3_column_text(queryStatement, 18)))
+                let relationship = String(describing: String(cString: sqlite3_column_text(queryStatement, 19)))
+                let photo_uri = String(describing: String(cString: sqlite3_column_text(queryStatement, 20)))
+                let gender = String(describing: String(cString: sqlite3_column_text(queryStatement, 21)))
+                let action_alias = String(describing: String(cString: sqlite3_column_text(queryStatement, 22)))
+                let action_registered_at = String(describing: String(cString: sqlite3_column_text(queryStatement, 23)))
+                let action_completed_at = String(describing: String(cString: sqlite3_column_text(queryStatement, 24)))
+                let action_metadata = String(describing: String(cString: sqlite3_column_text(queryStatement, 25)))
+
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                let date = formatter.date(from: dateString)
+                
+                list.append(
+                    Celebration(
+                        id: id,
+                        user_id: user_id,
+                        created_at: created_at,
+                        modified_at: modified_at,
+                        synced_at: synced_at,
+                        category: category,
+                        kind_alias: kind_alias,
+                        subkind: subkind,
+                        calendar_id: calendar_id,
+                        calendar_event_id: calendar_event_id,
+                        derived_from_id: derived_from_id,
+                        person_id: person_id,
+                        date: date!,
+                        day: Int(dayValue),
+                        month: Int(monthValue),
+                        year_of_birth: Int(year_of_birth),
+                        first_name: first_name,
+                        last_name: last_name,
+                        nickname: nickname,
+                        relationship: relationship,
+                        photo_uri: photo_uri,
+                        gender: gender,
+                        action_alias: action_alias,
+                        action_registered_at: action_registered_at,
+                        action_completed_at: action_completed_at,
+                        action_metadata: action_metadata
+                    )
+                )
+            }
+        } else {
+            print("SELECT statement could not be prepared")
+        }
+        sqlite3_finalize(queryStatement)
+        
+        // Prepare Data.
+        var note = ""
+        var photo = ""
+        
+        if list.count > 0 {
+            list.forEach { item in
+                if item.category == "Birthday" {
+                    note += "🥳 \(item.first_name) - birthday\r\n"
+                }
+                else if item.category == "Nameday" {
+                    note += "🥳 \(item.first_name) - name day\r\n"
+                }
+                
+                if item.photo_uri.count > 0 {
+                    photo = item.photo_uri
+                }
+            }
+        }
+        
+        print("note = \(note)")
+        print("photo = \(photo)")
+        return (note, photo)
+    }
+    
+    func insertData() {
+        insert(
+            id: "28bbe674-2134-43c2-8ee7-2bf0077d7a86",
+            user_id: "24e2c6d9-1159-4a66-8da2-2eed954181c8",
+            created_at: "2024-12-10 21:56:20",
+            modified_at: "2024-12-10 21:56:20",
+            synced_at: "",
+            category: "Birthday",
+            kind_alias: "GenericBirthday",
+            subkind: "",
+            calendar_id: "",
+            calendar_event_id: "",
+            derived_from_id: "",
+            person_id: "73f2560c-f34d-4bd9-8196-c91a894fa0f4",
+            date: Date(),
+            day: 14,
+            month: 11,
+            year_of_birth: 2018,
+            first_name: "Martin",
+            last_name: "",
+            nickname: "",
+            relationship: "",
+            photo_uri: "",
+            gender: "unknown",
+            action_alias: "None",
+            action_registered_at: "",
+            action_completed_at: "",
+            action_metadata: ""
+        )
+        insert(
+            id: "406d3ba6-9540-4805-a75e-c04fa6f11deb",
+            user_id: "24e2c6d9-1159-4a66-8da2-2eed954181c8",
+            created_at: "2024-12-10 21:57:06",
+            modified_at: "2024-12-10 21:57:06",
+            synced_at: "",
+            category: "Birthday",
+            kind_alias: "FamilyMemberBirthday",
+            subkind: "Son",
+            calendar_id: "",
+            calendar_event_id: "",
+            derived_from_id: "",
+            person_id: "ff57964d-5b8c-456b-834e-4c4d9cca6deb",
+            date: Date(),
+            day: 16,
+            month: 12,
+            year_of_birth: 2002,
+            first_name: "Tobias",
+            last_name: "",
+            nickname: "",
+            relationship: "Son",
+            photo_uri: "https://picsum.photos/id/582/600/300",
+            gender: "unknown",
+            action_alias: "None",
+            action_registered_at: "",
+            action_completed_at: "",
+            action_metadata: ""
+        )
+        insert(
+            id: "70d358d7-3e52-4600-b6c8-027b5de4160e",
+            user_id: "24e2c6d9-1159-4a66-8da2-2eed954181c8",
+            created_at: "2024-12-11 10:19:25",
+            modified_at: "2024-12-11 10:19:25",
+            synced_at: "",
+            category: "Nameday",
+            kind_alias: "NameDay",
+            subkind: "Son",
+            calendar_id: "",
+            calendar_event_id: "",
+            derived_from_id: "",
+            person_id: "ff57964d-5b8c-456b-834e-4c4d9cca6deb",
+            date: Date(),
+            day: 16,
+            month: 12,
+            year_of_birth: 2002,
+            first_name: "Sarah",
+            last_name: "",
+            nickname: "",
+            relationship: "Son",
+            photo_uri: "https://picsum.photos/id/64/600/300",
+            gender: "unknown",
+            action_alias: "None",
+            action_registered_at: "",
+            action_completed_at: "",
+            action_metadata: ""
+        )
+    }
 }
