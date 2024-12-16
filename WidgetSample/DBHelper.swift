@@ -100,7 +100,7 @@ class DBHelper
         action_metadata: String
     )
     {
-        let persons = read()
+        let persons = read(month: -1, day: -1)
         for p in persons
         {
             if p.id == id
@@ -156,8 +156,12 @@ class DBHelper
         sqlite3_finalize(insertStatement)
     }
     
-    func read() -> [Celebration] {
-        let queryStatementString = "SELECT * FROM celebrations;"
+    func read(month: Int, day: Int) -> [Celebration] {
+        var queryStatementString = "SELECT * FROM celebrations";
+        if (month != -1 && day != -1) {
+            queryStatementString = "SELECT * FROM celebrations WHERE month=\(month) AND day=\(day);"
+        }
+        
         var queryStatement: OpaquePointer? = nil
         var list : [Celebration] = []
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
@@ -175,8 +179,8 @@ class DBHelper
                 let derived_from_id = String(describing: String(cString: sqlite3_column_text(queryStatement, 10)))
                 let person_id = String(describing: String(cString: sqlite3_column_text(queryStatement, 11)))
                 let dateString = String(describing: String(cString: sqlite3_column_text(queryStatement, 12)))
-                let day = sqlite3_column_int(queryStatement, 13)
-                let month = sqlite3_column_int(queryStatement, 14)
+                let dayValue = sqlite3_column_int(queryStatement, 13)
+                let monthValue = sqlite3_column_int(queryStatement, 14)
                 let year_of_birth = sqlite3_column_int(queryStatement, 15)
                 let first_name = String(describing: String(cString: sqlite3_column_text(queryStatement, 16)))
                 let last_name = String(describing: String(cString: sqlite3_column_text(queryStatement, 17)))
@@ -208,8 +212,8 @@ class DBHelper
                         derived_from_id: derived_from_id,
                         person_id: person_id,
                         date: date!,
-                        day: Int(day),
-                        month: Int(month),
+                        day: Int(dayValue),
+                        month: Int(monthValue),
                         year_of_birth: Int(year_of_birth),
                         first_name: first_name,
                         last_name: last_name,
